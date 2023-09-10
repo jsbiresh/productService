@@ -5,6 +5,8 @@ import com.js.productservice.dtos.GenericProductDto;
 import com.js.productservice.models.Product;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 public interface ProductService {
 
@@ -13,6 +15,12 @@ public interface ProductService {
 
 
     GenericProductDto getProductById(Long id);
+
+    GenericProductDto createProduct(GenericProductDto genericProductDto);
+
+    GenericProductDto updateProductById(GenericProductDto genericProductDto);
+
+    List<GenericProductDto> getAllProducts();
 
 
 
