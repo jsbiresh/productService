@@ -24,5 +24,6 @@ public interface ProductService {
 
 
 
+    GenericProductDto deleteProductById(Long id);
 
 }
