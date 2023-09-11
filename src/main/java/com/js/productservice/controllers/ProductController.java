@@ -5,6 +5,9 @@ import com.js.productservice.dtos.GenericProductDto;
 import com.js.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -67,8 +70,12 @@ public class ProductController {
 
 
     @DeleteMapping("/{id}")
-    public GenericProductDto deleteProductById(@PathVariable("id") Long id) {
-        return productService.deleteProductById(id);
+    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") Long id) {
+
+        ResponseEntity<GenericProductDto> response = new ResponseEntity<>( productService.deleteProductById(id), HttpStatus.OK );
+        return response;
+
+//        return productService.deleteProductById(id);
     }
 
     @PostMapping("/")

@@ -60,13 +60,12 @@ public class FakeStoreProductService implements ProductService {
 
     @Override
     public List<GenericProductDto> getAllProducts() {
+
         RestTemplate restTemplate = restTemplateBuilder.build();
 
-//        ResponseEntity<List> response = restTemplate.getForEntity(productRequestsBaseUrl, List.class);
         ResponseEntity<FakeStoreProductDto[]> response = restTemplate.getForEntity(productRequestsBaseUrl, FakeStoreProductDto[].class);
 
         List<GenericProductDto> answer = new ArrayList<>();
-
         for (FakeStoreProductDto fakeStoreProductDto: Arrays.stream(response.getBody()).toList()) {
             answer.add(convertFakeToGeneric(fakeStoreProductDto));
         }
