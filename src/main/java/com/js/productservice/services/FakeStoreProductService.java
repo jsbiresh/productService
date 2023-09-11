@@ -2,6 +2,7 @@ package com.js.productservice.services;
 
 import com.js.productservice.dtos.FakeStoreProductDto;
 import com.js.productservice.dtos.GenericProductDto;
+import com.js.productservice.exceptions.NotFoundException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
@@ -30,17 +31,17 @@ public class FakeStoreProductService implements ProductService {
     }
 
     @Override
-    public GenericProductDto getProductById(Long id) {
+    public GenericProductDto getProductById(Long id) throws NotFoundException {
 
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDto> response = restTemplate.getForEntity(specificProductRequestUrl, FakeStoreProductDto.class, id);
 
         FakeStoreProductDto fakeStoreProductDto = response.getBody();
 
-        if (fakeStoreProductDto != null) {
-            return convertFakeToGeneric(fakeStoreProductDto);
+        if (fakeStoreProductDto == null) {
+            throw new NotFoundException("Product with ID: '" +id+ "' NOT FOUND.");
         }
-        return null;
+        return convertFakeToGeneric(fakeStoreProductDto);
     }
 
     @Override
@@ -52,30 +53,6 @@ public class FakeStoreProductService implements ProductService {
 
         return response.getBody();
     }
-
-//    @Override
-//    public GenericProductDto updateProductById(FakeStoreProductDto product, Long id) {
-//
-//        System.out.println("****************************************"+ specificProductRequestUrl);
-//
-//        RestTemplate restTemplate = restTemplateBuilder.build();
-//
-//
-//        RequestCallback requestCallback = restTemplate.acceptHeaderRequestCallback(FakeStoreProductDto.class);
-//
-//        ResponseExtractor<ResponseEntity<FakeStoreProductDto>> responseExtractor = restTemplate.responseEntityExtractor(FakeStoreProductDto.class);
-//
-//        ResponseEntity<FakeStoreProductDto> response =  restTemplate.execute(specificProductRequestUrl, HttpMethod.PUT, requestCallback, responseExtractor, id) ;
-//
-//
-//
-//        FakeStoreProductDto fakeStoreProductDto = response.getBody();
-//
-//        return convertFakeToGeneric(fakeStoreProductDto);
-//
-//
-////        return null;
-//    }
 
     @Override
     public List<GenericProductDto> getAllProducts() {
@@ -125,8 +102,7 @@ public class FakeStoreProductService implements ProductService {
 //    }
 
     @Override
-    public GenericProductDto updateProductById(GenericProductDto productRequestBody, Long id) {
-
+    public GenericProductDto updateProductById(GenericProductDto productRequestBody, Long id) throws NotFoundException {
 
         RestTemplate restTemplate = restTemplateBuilder.build();
 
@@ -140,10 +116,15 @@ public class FakeStoreProductService implements ProductService {
         ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(requestEntity, FakeStoreProductDto.class);
 
         FakeStoreProductDto fakeStoreProductDto = response.getBody();
-        if (fakeStoreProductDto != null) {
-            return convertFakeToGeneric(fakeStoreProductDto);
+
+        if (fakeStoreProductDto == null) {
+            throw new NotFoundException("Product with ID: "+ id +" NOT FOUND.");
         }
-        return null;
+//        if (fakeStoreProductDto != null) {
+//            return convertFakeToGeneric(fakeStoreProductDto);
+//        }
+//        return null;
+        return convertFakeToGeneric(fakeStoreProductDto);
     }
 
 
