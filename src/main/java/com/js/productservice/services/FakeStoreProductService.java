@@ -53,10 +53,29 @@ public class FakeStoreProductService implements ProductService {
         return response.getBody();
     }
 
-    @Override
-    public GenericProductDto updateProductById(GenericProductDto genericProductDto) {
-        return null;
-    }
+//    @Override
+//    public GenericProductDto updateProductById(FakeStoreProductDto product, Long id) {
+//
+//        System.out.println("****************************************"+ specificProductRequestUrl);
+//
+//        RestTemplate restTemplate = restTemplateBuilder.build();
+//
+//
+//        RequestCallback requestCallback = restTemplate.acceptHeaderRequestCallback(FakeStoreProductDto.class);
+//
+//        ResponseExtractor<ResponseEntity<FakeStoreProductDto>> responseExtractor = restTemplate.responseEntityExtractor(FakeStoreProductDto.class);
+//
+//        ResponseEntity<FakeStoreProductDto> response =  restTemplate.execute(specificProductRequestUrl, HttpMethod.PUT, requestCallback, responseExtractor, id) ;
+//
+//
+//
+//        FakeStoreProductDto fakeStoreProductDto = response.getBody();
+//
+//        return convertFakeToGeneric(fakeStoreProductDto);
+//
+//
+////        return null;
+//    }
 
     @Override
     public List<GenericProductDto> getAllProducts() {
@@ -80,7 +99,7 @@ public class FakeStoreProductService implements ProductService {
         // METHOD 1
         RequestCallback requestCallback = restTemplate.acceptHeaderRequestCallback(FakeStoreProductDto.class);
         ResponseExtractor<ResponseEntity<FakeStoreProductDto>> responseExtractor = restTemplate.responseEntityExtractor(FakeStoreProductDto.class);
-        ResponseEntity<FakeStoreProductDto> response =  restTemplate.execute(specificProductRequestUrl, HttpMethod.DELETE, requestCallback, responseExtractor, id) ;
+        ResponseEntity<FakeStoreProductDto> response = restTemplate.execute(specificProductRequestUrl, HttpMethod.DELETE, requestCallback, responseExtractor, id);
 
         FakeStoreProductDto fakeStoreProductDto = response.getBody();
 
@@ -88,10 +107,9 @@ public class FakeStoreProductService implements ProductService {
             return convertFakeToGeneric(fakeStoreProductDto);
         }
         return null;
+    }
+//  METHOD 2
 
-
-
-//        // METHOD 2
 //        // Create a URI by replacing {id} with the actual ID value
 //        URI uri = UriComponentsBuilder.fromUriString(specificProductRequestUrl)
 //                .buildAndExpand(id)
@@ -104,7 +122,30 @@ public class FakeStoreProductService implements ProductService {
 //        ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange( requestEntity, FakeStoreProductDto.class );
 //        FakeStoreProductDto fakeStoreProductDto = response.getBody();
 //        return convertFakeToGeneric(fakeStoreProductDto);
+//    }
+
+    @Override
+    public GenericProductDto updateProductById(GenericProductDto productRequestBody, Long id) {
+
+
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+        // Construct the URL for the update request, replacing {id} with the actual ID value
+        String updateUrl = UriComponentsBuilder.fromUriString(specificProductRequestUrl)
+                                                                                        .buildAndExpand(id)
+                                                                                        .toUriString();
+        // Create a RequestEntity with the PUT method and the updated product as the request body
+        RequestEntity<GenericProductDto> requestEntity = new RequestEntity<>(productRequestBody, HttpMethod.PUT, URI.create(updateUrl));
+        // Execute the PUT request and handle the response
+        ResponseEntity<FakeStoreProductDto> response = restTemplate.exchange(requestEntity, FakeStoreProductDto.class);
+
+        FakeStoreProductDto fakeStoreProductDto = response.getBody();
+        if (fakeStoreProductDto != null) {
+            return convertFakeToGeneric(fakeStoreProductDto);
+        }
+        return null;
     }
+
 
     private GenericProductDto convertFakeToGeneric(FakeStoreProductDto fakeStoreProductDto) {
         GenericProductDto product = new GenericProductDto();

@@ -13,17 +13,14 @@ public interface ProductService {
 
     //    Product getProductById(Long id);
 
-
     GenericProductDto getProductById(Long id);
 
     GenericProductDto createProduct(GenericProductDto genericProductDto);
 
-    GenericProductDto updateProductById(GenericProductDto genericProductDto);
-
     List<GenericProductDto> getAllProducts();
 
-
-
     GenericProductDto deleteProductById(Long id);
+
+    GenericProductDto updateProductById(GenericProductDto genericProductDto, Long id);
 
 }

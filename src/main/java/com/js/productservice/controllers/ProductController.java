@@ -28,13 +28,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-    // display an index.html page, where all the options to fetch will be available
-    @GetMapping ("")// Add a specific URL pattern for the index page
-    public String getIndexPage() {
-        return "index";
-    }
-
-
 
     @GetMapping("/")
     public List<GenericProductDto> getAllProducts() {
@@ -69,23 +62,25 @@ public class ProductController {
     }
 
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") Long id) {
-
-        ResponseEntity<GenericProductDto> response = new ResponseEntity<>( productService.deleteProductById(id), HttpStatus.OK );
-        return response;
-
-//        return productService.deleteProductById(id);
-    }
-
     @PostMapping("/")
     public GenericProductDto createProduct(@RequestBody GenericProductDto product) {
 
         return productService.createProduct(product);
     }
 
-//    @PutMapping("/{id}")
-//    public GenericProductDto updateProductById(@PathVariable("id") Long id) {
-//        return productService.updateProductById();
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") Long id) {
+
+        ResponseEntity<GenericProductDto> response = new ResponseEntity<>( productService.deleteProductById(id), HttpStatus.OK );
+        return response;
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<GenericProductDto> updateProductById(@PathVariable("id") Long id, @RequestBody GenericProductDto product) {
+
+//        ResponseEntity<GenericProductDto> response = new ResponseEntity<>( productService.updateProductById( product, id), HttpStatus.OK);
+//        return response;
+        return new ResponseEntity<>(productService.updateProductById(product, id), HttpStatus.OK);
+    }
+
 }

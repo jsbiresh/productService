@@ -22,7 +22,7 @@ public class SelfProductServiceImpl implements ProductService {
     }
 
     @Override
-    public GenericProductDto updateProductById(GenericProductDto genericProductDto) {
+    public GenericProductDto updateProductById(GenericProductDto genericProductDto, Long id) {
         return null;
     }
 
@@ -35,4 +35,5 @@ public class SelfProductServiceImpl implements ProductService {
     public GenericProductDto deleteProductById(Long id) {
         return null;
     }
+
 }
