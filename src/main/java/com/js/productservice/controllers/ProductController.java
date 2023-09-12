@@ -1,35 +1,25 @@
 package com.js.productservice.controllers;
 
-import com.js.productservice.dtos.ExceptionDto;
-import com.js.productservice.dtos.FakeStoreProductDto;
 import com.js.productservice.dtos.GenericProductDto;
 import com.js.productservice.exceptions.NotFoundException;
 import com.js.productservice.services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 //@Controller
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-
-
     private ProductService productService;
 
 //    @Autowired
     public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
         this.productService = productService;
     }
-
 
     @GetMapping("/")
     public List<GenericProductDto> getAllProducts() {
@@ -41,7 +31,6 @@ public class ProductController {
 //                new GenericProductDto()
 //        );
     }
-
 
     @GetMapping("/{id}")
     public GenericProductDto getProductById(@PathVariable("id") Long id) throws NotFoundException {
@@ -63,7 +52,6 @@ public class ProductController {
 //        return new GenericProductDto();
     }
 
-
     @PostMapping("/")
     public GenericProductDto createProduct(@RequestBody GenericProductDto product) {
 
@@ -71,7 +59,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") Long id) {
+    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") Long id) throws NotFoundException {
 
         ResponseEntity<GenericProductDto> response = new ResponseEntity<>( productService.deleteProductById(id), HttpStatus.OK );
         return response;
@@ -84,7 +72,5 @@ public class ProductController {
 //        return response;
         return new ResponseEntity<>(productService.updateProductById(product, id), HttpStatus.OK);
     }
-
-
 
 }
