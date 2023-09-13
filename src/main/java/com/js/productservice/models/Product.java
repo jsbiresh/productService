@@ -1,19 +1,26 @@
 package com.js.productservice.models;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import lombok.Builder;
 
-@Getter
-@Setter
+
+@Entity(name = "product")
+@Builder
 public class Product extends BaseModel {
 
     private String title;
     private String description;
     private String image;
+    //    Product : Category
+//    => L to R : 1 : 1
+//    => R to L : m : 1
+//    => Ans:- m :1
+    @ManyToOne
     private Category category;
     private double price;
 
-
-
+    public Product() {
+    }
 }
