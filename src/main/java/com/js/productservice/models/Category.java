@@ -1,10 +1,12 @@
 package com.js.productservice.models;
 
 import jakarta.persistence.Entity;
-import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity(name = "category")
-@Builder
+@Getter
+@Setter
 public class Category extends BaseModel {
     private String name;
 
