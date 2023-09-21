@@ -21,6 +21,7 @@ public class Product extends BaseModel {
 //    => Ans:- m :1
     @ManyToOne
     private Category category;
+
     private double price;
 
     public Product() {
