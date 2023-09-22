@@ -1,8 +1,7 @@
 package com.js.productservice.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,10 +18,15 @@ public class Product extends BaseModel {
 //    => L to R : 1 : 1
 //    => R to L : m : 1
 //    => Ans:- m :1
-    @ManyToOne
+
+    // this means that the category field in the Product class is the owner of the relationship
+    // using the joincolumn annotation to specify the column that will be used to join the two entities (Product and Category)
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "id_category")
     private Category category;
 
-    private double price;
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Price price;
 
     public Product() {
     }
