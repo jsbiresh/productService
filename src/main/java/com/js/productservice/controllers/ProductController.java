@@ -3,7 +3,7 @@ package com.js.productservice.controllers;
 import com.js.productservice.dtos.GenericProductDto;
 import com.js.productservice.exceptions.NotFoundException;
 import com.js.productservice.services.ProductService;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.js.productservice.services.SelfProductServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +15,20 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
     private ProductService productService;
+    private SelfProductServiceImpl selfProductServiceImpl;
 
-//    @Autowired
-    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
+    //    @Autowired
+//    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService, SelfProductServiceImpl selfProductServiceImpl) {
+    public ProductController(ProductService productService, SelfProductServiceImpl selfProductServiceImpl) {
         this.productService = productService;
+        this.selfProductServiceImpl = selfProductServiceImpl;
     }
 
     @GetMapping("/")
     public List<GenericProductDto> getAllProducts() {
 
         return productService.getAllProducts();
-
+//        return selfProductServiceImpl.getAllProducts();
         //        return List.of(
 //                new GenericProductDto(),
 //                new GenericProductDto()

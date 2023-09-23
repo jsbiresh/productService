@@ -2,7 +2,6 @@ package com.js.productservice.repositories;
 
 import com.js.productservice.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -33,13 +32,14 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     // find product by description contains
     List<Product> findByDescriptionContains(String description);
 
-    // writing a custom query to find all products with a *
-    @Query(value = CustomQueries.findAllProductsQuery, nativeQuery = true)
-    List<Product> findAllByTitleCustom();
+    
+//    // writing a custom query to find all products with a *
+//    @Query(value = CustomQueries.findAllProductsQuery, nativeQuery = true)
+//    List<Product> findAllByTitleCustom();
 
-    // writing a custom query to find all products with a specific title
-    @Query(value = "SELECT * FROM product join order_product" + " on product.id=order_product.product_id where title= :val", nativeQuery = true)
-    List<Product> findAllByTitleCustomJoinQuery(String val);
+//    // writing a custom query to find all products with a specific title
+//    @Query(value = "SELECT * FROM product join order_product" + " on product.id=order_product.product_id where title= :val", nativeQuery = true)
+//    List<Product> findAllByTitleCustomJoinQuery(String val);
 
 }
 
