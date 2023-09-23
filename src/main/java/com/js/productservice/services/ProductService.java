@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+//@Primary
 @Service("productService")
 public interface ProductService {
 
@@ -15,7 +16,7 @@ public interface ProductService {
 
     GenericProductDto getProductById(Long id) throws NotFoundException;
 
-    GenericProductDto getProductById(UUID id);
+    GenericProductDto getProductById(UUID id) throws NotFoundException;
 
     GenericProductDto createProduct(GenericProductDto genericProductDto);
 

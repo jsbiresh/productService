@@ -5,10 +5,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, UUID> {
+
+
+    // find product by id
+    Optional<Product> findById(UUID id);
 
     // find by title
     Product findByTitleEquals(String title);
@@ -32,7 +37,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
     // find product by description contains
     List<Product> findByDescriptionContains(String description);
 
-    
+
 //    // writing a custom query to find all products with a *
 //    @Query(value = CustomQueries.findAllProductsQuery, nativeQuery = true)
 //    List<Product> findAllByTitleCustom();

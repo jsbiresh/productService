@@ -30,4 +30,14 @@ public class Product extends BaseModel {
 
     public Product() {
     }
+
+    public Product(String title, String description, String image, Category category, Price price) {
+        this.title = title;
+        this.description = description;
+        this.image = image;
+        this.category = category;
+        this.price = price;
+    }
+
+
 }

@@ -1,21 +1,28 @@
 package com.js.productservice.dtos;
 
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
-@Entity
-@Setter
+import java.util.UUID;
+
+//@Entity
 @Getter
+@Setter
 public class GenericProductDto {
 
+    //    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuidGenerator")
+    @GenericGenerator(name = "uuidGenerator", strategy = "uuid2")
+    @Column(name = "id", columnDefinition = "binary(16)", nullable = false, updatable = false)
+    private UUID uuid;
+    //    private Long id;
     private String title;
     private String description;
     private String image;
