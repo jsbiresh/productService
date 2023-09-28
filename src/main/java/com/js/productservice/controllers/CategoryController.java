@@ -40,6 +40,7 @@ public class CategoryController {
     @GetMapping("/titles/")
     public List<String> getProductTitles(@RequestBody GetProductTitlesRequestDto requestDto) {
 
+        System.out.println("getProductTitles() called");
         List<String> uuids = requestDto.getUuids();
 
         return categoryService.getProductTitles(uuids);

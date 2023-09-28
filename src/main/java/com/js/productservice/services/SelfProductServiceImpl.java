@@ -32,7 +32,6 @@ public class SelfProductServiceImpl implements ProductService {
     public List<ProductDto> getAllProducts() {
 
         List<Product> allproducts = productRepository.findAll();
-        System.out.println("from service: ");
         List<ProductDto> productDtos = new ArrayList<>();
 
         for (Product product : allproducts) {

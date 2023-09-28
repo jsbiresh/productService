@@ -23,13 +23,5 @@ public interface ProductService {
     ProductDto updateProduct(String id, ProductDto productDto);
 
     ProductDto deleteProduct(String id);
-
-
-    // For API CALLS
-//    List<GenericProductDto> getAllProducts() throws NotFoundException;
-//    GenericProductDto getProductById(Long id) throws NotFoundException;
-//    GenericProductDto findByIdAndUpdate(GenericProductDto genericProductDto, Long id) throws NotFoundException;
-//    GenericProductDto deleteProductById(Long id);
-
-
+    
 }

@@ -4,7 +4,6 @@ import com.js.productservice.repositories.CategoryRepository;
 import com.js.productservice.repositories.PriceRepository;
 import com.js.productservice.repositories.ProductRepository;
 import com.js.productservice.services.SelfProductServiceImpl;
-import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,7 +37,7 @@ public class ProductserviceApplication implements CommandLineRunner {
 //
 //    }
 
-    @Transactional
+    //    @Transactional
     @Override
     public void run(String... args) throws Exception {
 
