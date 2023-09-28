@@ -1,65 +1,62 @@
 package com.js.productservice.services;
 
 
-import com.js.productservice.dtos.GenericProductDto;
+import com.js.productservice.dtos.ProductDto;
 import com.js.productservice.exceptions.NotFoundException;
 import com.js.productservice.models.Product;
-import com.js.productservice.repositories.SelfProductRepository;
+import com.js.productservice.repositories.ProductRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Primary
 @Service("selfProductServiceImpl")
 public class SelfProductServiceImpl implements ProductService {
 
-    private SelfProductRepository selfProductRepository;
+    private ProductRepository productRepository;
 
-    public SelfProductServiceImpl(SelfProductRepository selfProductRepository) {
-        this.selfProductRepository = selfProductRepository;
+    public SelfProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @Override
-    public GenericProductDto createProduct(GenericProductDto genericProductDto) {
+    public ProductDto getProductById(String id) throws NotFoundException {
+        System.out.println("getProductById() called");
+        Optional<Product> product = productRepository.findById(UUID.fromString(id));
+        if (product.isEmpty())
+            throw new RuntimeException();
+        Product prod = product.get();
+        prod.getPrice();        // this line is added to avoid lazy loading exception
+        ProductDto productDto = new ProductDto();
+        productDto.setTitle(prod.getTitle());
+        productDto.setDescription(prod.getDescription());
+        productDto.setPrice(prod.getPrice());
+        productDto.setImage(prod.getImage());
+        return productDto;
+    }
+
+    @Override
+    public ProductDto createProduct(Product product) {
         return null;
     }
 
     @Override
-    public List<GenericProductDto> getAllProducts() throws NotFoundException {
-
-        System.out.println("getAllProducts was called from SelfProductServiceImpl");
-        List<Product> products = selfProductRepository.findAll();
-        if (products == null) {
-            throw new NotFoundException("Products were not found, coming from SelfProductServiceImpl");
-        }
-        List<GenericProductDto> genericProductDtos = new ArrayList<>();
-        for (Product product : products) {
-            GenericProductDto genericProductDto = new GenericProductDto();
-            genericProductDto.setTitle(product.getTitle());
-            genericProductDto.setPrice(product.getPrice().getPrice());
-            genericProductDto.setCategory(product.getCategory().getName());
-            genericProductDto.setDescription(product.getDescription());
-            genericProductDto.setImage(product.getImage());
-            genericProductDtos.add(genericProductDto);
-        }
-        return genericProductDtos;
+    public List<ProductDto> getAllProducts(List<String> categories) {
+        return null;
     }
 
+
     @Override
-    public GenericProductDto getProductById(UUID id) throws NotFoundException {
+    public ProductDto updateProduct(String id, ProductDto productDto) {
         return null;
     }
 
     @Override
-    public GenericProductDto updateById(GenericProductDto genericProductDto, UUID id) throws NotFoundException {
+    public ProductDto deleteProduct(String id) {
         return null;
     }
 
-    @Override
-    public GenericProductDto deleteProductById(UUID id) {
-        return null;
-    }
 }

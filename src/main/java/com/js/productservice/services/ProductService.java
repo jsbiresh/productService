@@ -1,11 +1,11 @@
 package com.js.productservice.services;
 
-import com.js.productservice.dtos.GenericProductDto;
+import com.js.productservice.dtos.ProductDto;
 import com.js.productservice.exceptions.NotFoundException;
+import com.js.productservice.models.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 //@Primary
 @Service("productService")
@@ -13,15 +13,15 @@ public interface ProductService {
 
 
     // For Local Database
-    GenericProductDto createProduct(GenericProductDto genericProductDto);
+    ProductDto createProduct(Product product);
 
-    List<GenericProductDto> getAllProducts() throws NotFoundException;
+    List<ProductDto> getAllProducts(List<String> categories);
 
-    GenericProductDto getProductById(UUID id) throws NotFoundException;
+    ProductDto getProductById(String id) throws NotFoundException;
 
-    GenericProductDto updateById(GenericProductDto genericProductDto, UUID id) throws NotFoundException;
+    ProductDto updateProduct(String id, ProductDto productDto);
 
-    GenericProductDto deleteProductById(UUID id);
+    ProductDto deleteProduct(String id);
 
 
     // For API CALLS
