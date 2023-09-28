@@ -27,9 +27,7 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    public List<GenericProductDto> getAllProducts() {
-
-//        return selfProductServiceImpl.getAllProducts();
+    public List<GenericProductDto> getAllProducts() throws NotFoundException {
 
         return productService.getAllProducts();
     }
@@ -43,10 +41,6 @@ public class ProductController {
         if (genericProductDto == null) {
             throw new NotFoundException("Product by id " + id + " was not found, coming from ProductController");
         }
-        System.out.println("*******************************************");
-        System.out.println(genericProductDto.getUuid());
-        System.out.println(genericProductDto.getTitle());
-        System.out.println("*******************************************");
         genericProductDto.setUuid(genericProductDto.getUuid());
         genericProductDto.setTitle(genericProductDto.getTitle());
         genericProductDto.setPrice(genericProductDto.getPrice());
@@ -62,7 +56,6 @@ public class ProductController {
 //        genericProductDto.setDescription(genericProductDto.getDescription());
 //        genericProductDto.setImage(genericProductDto.getImage());
 //        System.out.println("==>" + genericProductDto);
-
         return genericProductDto;
     }
 
@@ -73,18 +66,18 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") Long id) throws NotFoundException {
+    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") UUID id) throws NotFoundException {
 
         ResponseEntity<GenericProductDto> response = new ResponseEntity<>( productService.deleteProductById(id), HttpStatus.OK );
         return response;
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GenericProductDto> updateProductById(@PathVariable("id") Long id, @RequestBody GenericProductDto product) throws NotFoundException {
+    public ResponseEntity<GenericProductDto> updateProductById(@PathVariable("id") UUID id, @RequestBody GenericProductDto product) throws NotFoundException {
 
 //        ResponseEntity<GenericProductDto> response = new ResponseEntity<>( productService.updateProductById( product, id), HttpStatus.OK);
 //        return response;
-        return new ResponseEntity<>(productService.updateProductById(product, id), HttpStatus.OK);
+        return new ResponseEntity<>(productService.updateById(product, id), HttpStatus.OK);
     }
 
 }
