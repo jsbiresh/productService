@@ -1,6 +1,5 @@
 package com.js.productservice.controllers;
 
-import com.js.productservice.dtos.GetProductTitlesRequestDto;
 import com.js.productservice.dtos.ProductDto;
 import com.js.productservice.exceptions.NotFoundException;
 import com.js.productservice.models.Product;
@@ -12,12 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@Controller
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private ProductService productService;
-//    private SelfProductServiceImpl selfProductServiceImpl;
 
     @Autowired
     public ProductController(ProductService productService) {
@@ -25,10 +22,10 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    public List<ProductDto> getAllProducts(@RequestBody GetProductTitlesRequestDto requestDto) throws NotFoundException {
+    public List<ProductDto> getAllProducts() throws NotFoundException {
 
-        List<String> uuids = requestDto.getUuids();
-        return productService.getAllProducts(uuids);
+        System.out.println("getProductTitles() called :- ");
+        return productService.getAllProducts();
     }
 
     @GetMapping("/{id}")

@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Entity(name = "product")
 @Getter
 @Setter
@@ -22,7 +21,7 @@ public class Product extends BaseModel {
     // this means that the category field in the Product class is the owner of the relationship
     // using the joincolumn annotation to specify the column that will be used to join the two entities (Product and Category)
     @ManyToOne(cascade = {CascadeType.PERSIST})
-    @JoinColumn(name = "id_category")
+    @JoinColumn(name = "category")
     private Category category;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
@@ -38,6 +37,4 @@ public class Product extends BaseModel {
         this.category = category;
         this.price = price;
     }
-
-
 }

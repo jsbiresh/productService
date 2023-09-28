@@ -3,6 +3,7 @@ package com.js.productservice.repositories;
 import com.js.productservice.models.Category;
 import com.js.productservice.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,6 +13,10 @@ import java.util.UUID;
 @Repository("ProductRepository")
 public interface ProductRepository extends JpaRepository<Product, UUID> {
 
+
+    List<Product> findAll();
+
+    Product save(Product product);
 
     @Override
     Optional<Product> findById(UUID uuid);
@@ -40,8 +45,8 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 //    List<Product> findAllByCategoryIn(List<UUID> uuids);
 
 
-//    @Query(value = CustomQueries.FIND_ALL_BY_TITLE, nativeQuery = true)
-//    List<Product> findAllByTitle(String naman);
+    @Query(value = CustomQueries.FIND_ALL_BY_TITLE, nativeQuery = true)
+    List<Product> findAllByTitle(String naman);
 
 //    @Query("select Product from Product where Product.price.currency = :currency and Product.title = :naman")
 //    List<Product> doSomething(String naman, String currency);

@@ -15,7 +15,8 @@ public interface ProductService {
     // For Local Database
     ProductDto createProduct(Product product);
 
-    List<ProductDto> getAllProducts(List<String> categories);
+    //    List<ProductDto> getAllProducts(List<String> categories);
+    List<ProductDto> getAllProducts();
 
     ProductDto getProductById(String id) throws NotFoundException;
 
