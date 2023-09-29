@@ -1,7 +1,5 @@
 package com.js.productservice.services;
 
-import com.js.productservice.dtos.GetProductTitlesRequestDto;
-import com.js.productservice.dtos.ProductDto;
 import com.js.productservice.models.Category;
 import com.js.productservice.models.Product;
 import com.js.productservice.repositories.CategoryRepository;
@@ -20,25 +18,56 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Set<String> getAllCategory() {
+        System.out.println("***************");
+        System.out.println("getAllCategory() called");
+        System.out.println("***************");
+        List<Category> category = categoryRepository.findAll();
+        Set<String> all_cat = new HashSet<>();
+        for (Category cat : category) {
+            all_cat.add(cat.getName());
+        }
+        return all_cat;
+    }
+
+    // Get category by String
+    @Override
     public Category getCategory(String uuid) {
+
+        System.out.println("***************");
+        System.out.println("getCategory() called String");
+        System.out.println("***************");
         Optional<Category> categoryOptional = categoryRepository.findById(UUID.fromString(uuid));
 
         if (categoryOptional.isEmpty()) {
             return null;
         }
-
         Category category = categoryOptional.get();
-
         List<Product> products = category.getProducts();
-
-
         return category;
     }
+
+    // Get category by UUID
+//    @Override
+//    public Category getCategory(UUID uuid) {
+//
+//        System.out.println("***************");
+//        System.out.println("getCategory() called UUID");
+//        System.out.println("***************");
+//        Optional<Category> categoryOptional = categoryRepository.findById(uuid);
+//
+//        if (categoryOptional.isEmpty()) {
+//            return null;
+//        }
+//        Category category = categoryOptional.get();
+//        List<Product> products = category.getProducts();
+//        return category;
+//    }
 
     public List<String> getProductTitles(List<String> categoryUUIDs) {
         List<UUID> uuids = new ArrayList<>();
 
-        for (String uuid: categoryUUIDs) {
+        for (String uuid : categoryUUIDs) {
             uuids.add(UUID.fromString(uuid));
         }
 
@@ -55,48 +84,57 @@ public class CategoryServiceImpl implements CategoryService {
         return titles;
     }
 
+//
+//    @Override
+//    public List<Product> getAllProductsFromCategory(UUID uuid) {
+//
+//        System.out.println("**************************** ");
+//        System.out.println("getAllProductsFromCategory() called from Service");
+//        System.out.println("**************************** ");
+//        // find category by uuid
+//        Optional<Category> categoryOptional = categoryRepository.findById(uuid);
+//
+//        // if category is not found, return null
+//        if (categoryOptional.isEmpty()) {
+//            return null;
+//        }
+//
+//        System.out.println("Found Category by UUID : " + categoryOptional.get().getName());
+//
+//        // get the category
+//        String category = categoryOptional.get().getName();
+//
+//        List<String> results = categoryRepository.findAllByCategoryIn(category);
+//        List<Product> productList = new ArrayList<>();
+//
+//        for (String id : results) {
+//            System.out.println(id);
+////            Optional<Product> productOptional = productRepository.findById(UUID.fromString(result));
+////            if (productOptional.isEmpty()) {
+////                return null;
+////            }
+////            productList.add(productOptional.get());
+//        }
+//
+////        for (ProductDto productDto : results) {
+////
+////            Product product = new Product();
+////            product.setTitle(productDto.getTitle());
+////            product.setImage(productDto.getImage());
+////            product.setDescription(productDto.getDescription());
+////            product.setPrice(productDto.getPrice());
+////            productList.add(product);
+////        }
+//
+//
+//        System.out.println("productList size: " + productList.size());
+//        return productList;
+//    }
 
-    @Override
-    public Set<String> getAllCategory() {
-        List<Category> category = categoryRepository.findAll();
-        Set<String> all_cat = new HashSet<>();
-        for (Category cat : category) {
-            all_cat.add(cat.getName());
-        }
-        System.out.println("HOLA MUNDOS!!!");
-        return all_cat;
-    }
 
-    @Override
-    public List<ProductDto> getAllProductsFromCategory(String uuid) {
+//    @Override
+//    public List<String> getUuids(GetProductTitlesRequestDto ids) {
+//        return ids.getUuids();
+//    }
 
-        // function to get all products from a category
-        Optional<Category> categoryOptional = categoryRepository.findById(UUID.fromString(uuid));
-
-        if (categoryOptional.isPresent()) {
-
-            Category category = categoryOptional.get();
-            List<Product> products = category.getProducts();
-
-            List<ProductDto> productDtos = new ArrayList<>();
-
-            for (Product product : products) {
-
-                ProductDto productDto = new ProductDto();
-                productDto.setDescription(product.getDescription());
-                productDto.setTitle(product.getTitle());
-                productDto.setImage(product.getImage());
-                productDto.setPrice(product.getPrice());
-                productDtos.add(productDto);
-            }
-            return productDtos;
-        }
-
-        return null;
-    }
-
-    @Override
-    public List<String> getUuids(GetProductTitlesRequestDto ids) {
-        return ids.getUuids();
-    }
 }

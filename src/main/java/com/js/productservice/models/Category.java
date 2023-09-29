@@ -10,6 +10,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity(name = "category")
 @Getter
@@ -29,4 +30,7 @@ public class Category extends BaseModel {
     private List<Product> products;
 
 
+    public UUID getUuid() {
+        return super.getUuid();
+    }
 }

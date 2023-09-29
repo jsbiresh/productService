@@ -21,8 +21,12 @@ public class CategoryController {
 
     @GetMapping("/{uuid}")
     public List<ProductDto> getCategory(@PathVariable("uuid") String uuid) {
-        List<Product> products = categoryService.getCategory(uuid).getProducts();
 
+        System.out.println("****************************");
+        System.out.println("getCategory() called FROM Controller");
+        System.out.println("****************************");
+
+        List<Product> products = categoryService.getCategory(uuid).getProducts();
         List<ProductDto> productDtos = new ArrayList<>();
 
         for (Product product: products) {
@@ -33,7 +37,6 @@ public class CategoryController {
             productDto.setPrice(product.getPrice());
             productDtos.add(productDto);
         }
-
         return productDtos;
     }
 
@@ -45,8 +48,10 @@ public class CategoryController {
 
         return categoryService.getProductTitles(uuids);
     }
+
     @GetMapping("/")
     public Set<String> getAllCategories() {
         return categoryService.getAllCategory();
     }
+
 }
