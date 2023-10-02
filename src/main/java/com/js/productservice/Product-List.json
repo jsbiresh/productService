@@ -1,0 +1,57 @@
+[
+  {
+    "title": "Apple Watch",
+    "description": "Best UI and Experience Ever.",
+    "image": "Apple Watch Ever Image",
+    "price": {
+      "currency": "Dollar",
+      "price": 250.54
+    }
+  },
+  {
+    "title": "Macbook Air",
+    "description": "Best Laptop Ever",
+    "image": "Macbook Air Image",
+    "price": {
+      "currency": "Rupee",
+      "price": 120000.95
+    }
+  },
+  {
+    "title": "Samsung Galaxy A50s",
+    "description": "Best UI and Screen Ever.",
+    "image": "Samsung Galaxy A50s Image",
+    "price": {
+      "currency": "Dollar",
+      "price": 450.64
+    }
+  },
+  {
+    "title": "Samsung Galaxy M31",
+    "description": "Best UI and Screen Ever.",
+    "image": "Samsung Galaxy M31 Image",
+    "price": {
+      "currency": "Dollar",
+      "price": 480.94
+    }
+  },
+  {
+    "title": "LG G2 Mobile ",
+    "description": "Best Mobile Shape.",
+    "image": "LG G2 Image",
+    "price": {
+      "currency": "Dollar",
+      "price": 350.74
+    }
+  },
+  {
+    "title": "Samsung Galaxy S21 Ultra",
+    "description": "Best Screen and Camera Ever.",
+    "image": "Samsung Galaxy S21 Image",
+    "price": {
+      "currency": "Won",
+      "price": 99252.65
+    }
+  }
+]
+

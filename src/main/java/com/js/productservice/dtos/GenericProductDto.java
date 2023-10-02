@@ -10,7 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
-//@Entity
+
 @Getter
 @Setter
 public class GenericProductDto {
@@ -30,4 +30,7 @@ public class GenericProductDto {
     private double price;
     private String category;
 
+    public void setId(Long id) {
+        this.uuid = UUID.fromString(String.valueOf(id));
+    }
 }

@@ -3,26 +3,40 @@ package com.js.productservice.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
-import java.util.UUID;
 
 @Entity(name = "category")
-@Getter
-@Setter
+//@Getter
+//@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category extends BaseModel {
+
     private String name;
 
 //    @OneToMany
 //    private List<Product> products;
 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
     // this means that the category field in the Product class is the owner of the relationship
     @OneToMany(mappedBy = "category")
@@ -30,7 +44,7 @@ public class Category extends BaseModel {
     private List<Product> products;
 
 
-    public UUID getUuid() {
-        return super.getUuid();
-    }
+//    public UUID getUuid() {
+//        return super.getUuid();
+//    }
 }

@@ -45,7 +45,7 @@
 //        ResponseEntity<FakeStoreProductDto> response = restTemplate.getForEntity(specificProductRequestUrl, FakeStoreProductDto.class, id);
 //
 //        if (response.getBody() == null) {
-//            throw new NotFoundException("Product with ID: '"+ id +"' not Found.");
+//            throw new NotFoundException("Product with ID: '" + id + "' not Found.");
 //        }
 //        return response.getBody();
 //    }
@@ -117,7 +117,7 @@
 //        FakeStoreProductDto fakeStoreProductDto = response.getBody();
 //
 //        if (fakeStoreProductDto == null) {
-//            throw new NotFoundException("Product with ID: "+ id +" NOT FOUND.");
+//            throw new NotFoundException("Product with ID: " + id + " NOT FOUND.");
 //        }
 //
 //        return convertFakeToGeneric(fakeStoreProductDto);

@@ -9,16 +9,8 @@ public interface CategoryService {
 
     Set<String> getAllCategory();
 
-//    Category getCategory(UUID uuid);
-
-//    List<Product> getAllProductsFromCategory(UUID uuid);
-
     Category getCategory(String uuid);
-
 
     List<String> getProductTitles(List<String> categoryUUIDs);
 
-
-//
-//    List<String> getUuids(GetProductTitlesRequestDto ids);
 }

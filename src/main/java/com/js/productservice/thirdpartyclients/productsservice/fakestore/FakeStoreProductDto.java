@@ -1,6 +1,5 @@
 package com.js.productservice.thirdpartyclients.productsservice.fakestore;
 
-import com.js.productservice.models.Category;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,5 +24,4 @@ public class FakeStoreProductDto {
     private String category;
     private String description;
     private String image;
-
 }

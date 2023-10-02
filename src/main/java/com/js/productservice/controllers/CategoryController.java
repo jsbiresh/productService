@@ -22,10 +22,6 @@ public class CategoryController {
     @GetMapping("/{uuid}")
     public List<ProductDto> getCategory(@PathVariable("uuid") String uuid) {
 
-        System.out.println("****************************");
-        System.out.println("getCategory() called FROM Controller");
-        System.out.println("****************************");
-
         List<Product> products = categoryService.getCategory(uuid).getProducts();
         List<ProductDto> productDtos = new ArrayList<>();
 

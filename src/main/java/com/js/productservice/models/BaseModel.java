@@ -17,7 +17,7 @@ public class BaseModel {
     @Column(name = "id", columnDefinition = "binary(16)", nullable = false, updatable = false)
     private UUID uuid;
 
-    protected UUID getUuid() {
-        return uuid;
-    }
+//    private UUID getUuid() {
+//        return uuid;
+//    }
 }

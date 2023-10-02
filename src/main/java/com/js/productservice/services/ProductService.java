@@ -1,5 +1,6 @@
 package com.js.productservice.services;
 
+import com.js.productservice.dtos.DisplayProductDto;
 import com.js.productservice.dtos.ProductDto;
 import com.js.productservice.exceptions.NotFoundException;
 import com.js.productservice.models.Product;
@@ -12,16 +13,35 @@ import java.util.List;
 public interface ProductService {
 
 
-    // For Local Database
+    // use for LOCAL DATABASE
+    // ************************************************
+
     ProductDto createProduct(Product product);
 
-    //    List<ProductDto> getAllProducts(List<String> categories);
-    List<ProductDto> getAllProducts();
+    List<DisplayProductDto> getAllProducts() throws NotFoundException;
 
-    ProductDto getProductById(String id) throws NotFoundException;
+    DisplayProductDto getProductById(String id) throws NotFoundException;
 
-    ProductDto updateProduct(String id, ProductDto productDto);
+    ProductDto updateProduct(String id, ProductDto productDto) throws NotFoundException;
 
-    ProductDto deleteProduct(String id);
-    
+    ProductDto deleteProduct(String id) throws NotFoundException;
+
+    // ****************** END ****************************
+
+    // use for FAKESTORE API
+    // ************************************************
+
+//    FakeStoreProductDto createProduct(FakeStoreProductDto fakeStoreProductDto);
+//
+//    List<FakeStoreProductDto> getAllProducts() throws NotFoundException;
+//
+//    FakeStoreProductDto getProductById(String id) throws NotFoundException;
+//
+//    FakeStoreProductDto updateProduct(String id, FakeStoreProductDto fakeStoreProductDto) throws NotFoundException;
+//
+//    String deleteProduct(String id) throws NotFoundException;
+
+    // ************************************************
+
+
 }

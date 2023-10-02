@@ -12,14 +12,13 @@ import java.util.UUID;
 
 @Repository("ProductRepository")
 public interface ProductRepository extends JpaRepository<Product, UUID> {
-
-
+    
     List<Product> findAll();
 
     Product save(Product product);
 
-    @Override
-    Optional<Product> findById(UUID uuid);
+
+    Optional<Product> findById(UUID id);
 
     Product findByTitleEquals(String title);
 
