@@ -2,6 +2,7 @@ package com.js.productservice.services;
 
 
 import com.js.productservice.dtos.DisplayProductDto;
+import com.js.productservice.dtos.GenericProductDto;
 import com.js.productservice.dtos.ProductDto;
 import com.js.productservice.exceptions.NotFoundException;
 import com.js.productservice.models.Category;
@@ -41,18 +42,30 @@ public class ProductServiceImpl implements ProductService {
         return target;
     }
 
-    // Utility method to copy properties from a Product to a ProductDto
-    private ProductDto copyProductDtoProperties(Product source) {
-        ProductDto target = new ProductDto();
+//    // Utility method to copy properties from a Product to a ProductDto
+//    private ProductDto copyProductDtoProperties(Product source) {
+//        ProductDto target = new ProductDto();
+//        target.setTitle(source.getTitle());
+//        target.setDescription(source.getDescription());
+//        target.setImage(source.getImage());
+//        target.setPrice(source.getPrice());
+//        return target;
+//    }
+
+
+    // Utility method to copy properties from a Product to a GenericProductDto
+    private GenericProductDto productToGenericProductDtoProperties(Product source) {
+        GenericProductDto target = new GenericProductDto();
         target.setTitle(source.getTitle());
         target.setDescription(source.getDescription());
         target.setImage(source.getImage());
-        target.setPrice(source.getPrice());
+        target.setPrice(source.getPrice().getPrice());
+        target.setCategory(source.getCategory().getName());
         return target;
     }
 
     @Override
-    public ProductDto createProduct(Product product) {
+    public GenericProductDto createProduct(Product product) {
 
         // this should be the structure of the request body
 //        {
@@ -88,20 +101,22 @@ public class ProductServiceImpl implements ProductService {
         newProduct.setImage(product.getImage());
         newProduct.setCategory(category);
         newProduct.setPrice(product.getPrice());
+
         // Save the new Product
         Product savedProduct = productRepository.save(newProduct);
-        // Create a new ProductDto and copy the properties from the savedProduct
-        return copyProductDtoProperties(savedProduct);
+
+        // Create a new GenericProductDto and copy the properties from the savedProduct
+        return productToGenericProductDtoProperties(savedProduct);
     }
 
     @Override
     public List<DisplayProductDto> getAllProducts() {
 
-        List<Product> allproducts = productRepository.findAll();
+        List<Product> allProducts = productRepository.findAll();
 
         List<DisplayProductDto> productDtos = new ArrayList<>();
 
-        for (Product product : allproducts) {
+        for (Product product : allProducts) {
 
             DisplayProductDto productDto = new DisplayProductDto();
 
@@ -138,11 +153,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto updateProduct(String id, ProductDto productDto) throws NotFoundException {
+    public GenericProductDto updateProduct(String id, ProductDto productDto) throws NotFoundException {
 
         Optional<Product> optionalProduct = productRepository.findById(UUID.fromString(id));
         if (optionalProduct.isEmpty())
-            throw new NotFoundException("Product with ID : " + id + " NOT FOUND, Update Failed");
+            throw new NotFoundException("Product with ID : " + id + " NOT FOUND, Update Failed.");
 
         Product product = optionalProduct.get();
         product.setTitle(productDto.getTitle());
@@ -152,23 +167,34 @@ public class ProductServiceImpl implements ProductService {
 
         Product savedProduct = productRepository.save(product);
         // Create a new ProductDto and copy the properties from the savedProduct
-        return copyProductDtoProperties(savedProduct);
+        GenericProductDto genericProductDto = new GenericProductDto();
+        genericProductDto.setTitle(savedProduct.getTitle());
+        genericProductDto.setDescription(savedProduct.getDescription());
+        genericProductDto.setImage(savedProduct.getImage());
+        genericProductDto.setPrice(savedProduct.getPrice().getPrice());
+        genericProductDto.setCategory(savedProduct.getCategory().getName());
+
+        return genericProductDto;
+
+//        return copyProductDtoProperties(savedProduct);
     }
 
-    // working with local database
     @Override
-    public ProductDto deleteProduct(String id) throws NotFoundException {
+    public GenericProductDto deleteProduct(String id) throws NotFoundException {
 
         Optional<Product> optionalProduct = productRepository.findById(UUID.fromString(id));
         if (optionalProduct.isEmpty())
-            throw new NotFoundException("Product with ID : " + id + " NOT FOUND, Deletion Failed");
+            throw new NotFoundException("Product with ID : " + id + " NOT FOUND, Deletion Failed.");
+
         Product product = optionalProduct.get();
-        //  Product details to return after DELETE operation
-        ProductDto productDto = new ProductDto();
+
+        GenericProductDto productDto = new GenericProductDto();
         productDto.setTitle(product.getTitle());
         productDto.setDescription(product.getDescription());
         productDto.setImage(product.getImage());
-        productDto.setPrice(product.getPrice());
+        productDto.setPrice(product.getPrice().getPrice());
+        productDto.setCategory(product.getCategory().getName());
+
         productRepository.delete(product);
         return productDto;
     }

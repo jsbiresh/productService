@@ -1,6 +1,7 @@
 package com.js.productservice.services;
 
 import com.js.productservice.dtos.DisplayProductDto;
+import com.js.productservice.dtos.GenericProductDto;
 import com.js.productservice.dtos.ProductDto;
 import com.js.productservice.exceptions.NotFoundException;
 import com.js.productservice.models.Product;
@@ -16,15 +17,16 @@ public interface ProductService {
     // use for LOCAL DATABASE
     // ************************************************
 
-    ProductDto createProduct(Product product);
+    GenericProductDto createProduct(Product product);
 
     List<DisplayProductDto> getAllProducts() throws NotFoundException;
 
+
     DisplayProductDto getProductById(String id) throws NotFoundException;
 
-    ProductDto updateProduct(String id, ProductDto productDto) throws NotFoundException;
+    GenericProductDto updateProduct(String id, ProductDto productDto) throws NotFoundException;
 
-    ProductDto deleteProduct(String id) throws NotFoundException;
+    GenericProductDto deleteProduct(String id) throws NotFoundException;
 
     // ****************** END ****************************
 

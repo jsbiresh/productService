@@ -2,6 +2,7 @@ package com.js.productservice.controllers;
 
 import com.js.productservice.dtos.GetProductTitlesRequestDto;
 import com.js.productservice.dtos.ProductDto;
+import com.js.productservice.exceptions.NotFoundException;
 import com.js.productservice.models.Product;
 import com.js.productservice.services.CategoryService;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{uuid}")
-    public List<ProductDto> getCategory(@PathVariable("uuid") String uuid) {
+    public List<ProductDto> getCategory(@PathVariable("uuid") String uuid) throws NotFoundException {
 
         List<Product> products = categoryService.getCategory(uuid).getProducts();
         List<ProductDto> productDtos = new ArrayList<>();

@@ -1,6 +1,7 @@
 package com.js.productservice.controllers;
 
 import com.js.productservice.dtos.DisplayProductDto;
+import com.js.productservice.dtos.GenericProductDto;
 import com.js.productservice.dtos.ProductDto;
 import com.js.productservice.exceptions.NotFoundException;
 import com.js.productservice.models.Product;
@@ -37,7 +38,7 @@ public class ProductController {
     }
 
     @PostMapping("/")
-    public ProductDto createProduct(@RequestBody Product product) {
+    public GenericProductDto createProduct(@RequestBody Product product) {
 
         return productService.createProduct(product);
     }
@@ -56,13 +57,13 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ProductDto updateProductById(@PathVariable("id") String id, @RequestBody ProductDto product) throws NotFoundException {
+    public GenericProductDto updateProductById(@PathVariable("id") String id, @RequestBody ProductDto product) throws NotFoundException {
 
         return productService.updateProduct(id, product);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProductDto> deleteProductById(@PathVariable("id") String id) throws NotFoundException {
+    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") String id) throws NotFoundException {
 
         return new ResponseEntity<>(productService.deleteProduct(id), HttpStatus.OK);
     }

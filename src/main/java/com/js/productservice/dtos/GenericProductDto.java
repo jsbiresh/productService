@@ -30,7 +30,12 @@ public class GenericProductDto {
     private double price;
     private String category;
 
-    public void setId(Long id) {
-        this.uuid = UUID.fromString(String.valueOf(id));
-    }
+//    public void setId(Long id) {
+//        this.uuid = UUID.fromString(String.valueOf(id));
+//    }
+//
+//    public Long getId() {
+//        return Long.parseLong(uuid.toString());
+//    }
+
 }

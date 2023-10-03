@@ -1,5 +1,6 @@
 package com.js.productservice.services;
 
+import com.js.productservice.exceptions.NotFoundException;
 import com.js.productservice.models.Category;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface CategoryService {
 
     Set<String> getAllCategory();
 
-    Category getCategory(String uuid);
+    Category getCategory(String uuid) throws NotFoundException;
 
     List<String> getProductTitles(List<String> categoryUUIDs);
 

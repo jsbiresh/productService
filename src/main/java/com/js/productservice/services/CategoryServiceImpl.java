@@ -1,5 +1,6 @@
 package com.js.productservice.services;
 
+import com.js.productservice.exceptions.NotFoundException;
 import com.js.productservice.models.Category;
 import com.js.productservice.models.Product;
 import com.js.productservice.repositories.CategoryRepository;
@@ -29,12 +30,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     // Get category by String
     @Override
-    public Category getCategory(String uuid) {
+    public Category getCategory(String uuid) throws NotFoundException {
 
         Optional<Category> categoryOptional = categoryRepository.findById(UUID.fromString(uuid));
 
         if (categoryOptional.isEmpty()) {
-            throw new RuntimeException("Product with ID : " + uuid + " NOT FOUND");
+            throw new NotFoundException("Category with ID : " + uuid + " NOT FOUND");
         }
         Category category = categoryOptional.get();
         List<Product> products = category.getProducts();
